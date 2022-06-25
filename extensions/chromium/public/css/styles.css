@@ -1,0 +1,235 @@
+/*
+FIXME
+Take note when breathing out, the transition timing is 6s
+https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
+*/
+
+:root {
+  --dimensions-inner-ring: 80px;
+
+  --bg-color-inner-ring: #6aa3e9;
+  --bg-color-center-ring: #87b4eb;
+  --bg-color-outer-ring: #b3ceee;
+
+  --dark-bg-color: #22272e;
+  --light-color: #adbac7;
+
+  --light-bg-color: #ffffff;
+  --dark-color: #2c3e50;
+
+  --close-popup-btn-bg-color: lightgrey;
+  --close-popup-btn-hover-bg-color: grey;
+  --btn-hover-bg-color: var(--close-popup-btn-bg-color);
+
+  --close-popup-btn-bg-color-dark-theme: #5c5b5b;
+
+  --transition-timing-func-and-delay: ease-in-out 0.5s;
+
+  --z-index-button: 999;
+  --body-padding: 2em;
+  --popup-width: calc(var(--dimensions-inner-ring) * 3 + var(--body-padding));
+
+  --focus-outline: 3px solid var(--light-color);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.body {
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+  padding: 1em;
+  transition: background-color var(--transition-timing-func-and-delay),
+    color var(--transition-timing-func-and-delay);
+  font-family: Arial, Helvetica, sans-serif;;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+  transition: background-color var(--transition-timing-func-and-delay),
+    color var(--transition-timing-func-and-delay);
+}
+
+.btn:focus {
+  outline: var(--focus-outline);
+}
+
+.btn--bg-color {
+  background-color: var(--close-popup-btn-bg-color);
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg-color);
+}
+
+.btn--bg-color:hover {
+  background-color: var(--close-popup-btn-hover-bg-color);
+}
+
+.btn--increase-font-size {
+  font-size: 1.5em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.link {
+  text-decoration: none;
+  color: black;
+  transition: color 0.5s ease-in-out;
+  padding: 1px 3px;
+  border-radius: 1px;
+}
+.link:hover {
+  color: #073f84;
+}
+.link:focus {
+  outline: var(--focus-outline);
+}
+.breathing {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: var(--popup-width);
+  height: var(--popup-width);
+}
+
+.timer {
+  color: black;
+  text-align: center;
+}
+
+.wrapper {
+  position: relative;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring__btn {
+  transition: all 200ms ease-in-out;
+  opacity: 1;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background-color: #3584e4;
+  color: white;
+  z-index: calc(var(--z-index-button) - 0);
+}
+
+.ring__btn:focus {
+  /* FIXME This focus outline is not visible when session is on. */
+  box-shadow: 0 0 6px 0 black;
+}
+
+.ring__btn-exercise-on {
+  box-shadow: 0 0 6px 0 black;
+  background-color: white;
+  color: black;
+}
+
+.ring__inner {
+  background-color: var(--bg-color-inner-ring);
+  z-index: calc(var(--z-index-button) - 1);
+}
+.ring__center {
+  background-color: var(--bg-color-center-ring);
+  z-index: calc(var(--z-index-button) - 2);
+}
+.ring__outer {
+  background-color: var(--bg-color-outer-ring);
+  z-index: calc(var(--z-index-button) - 3);
+}
+
+.ring__inner--transition-breath-in {
+  transition: width 2.4s var(--transition-timing-func-and-delay),
+    height 2.4s var(--transition-timing-func-and-delay);
+}
+
+.ring__center--transition-breath-in {
+  transition: width 2.7s var(--transition-timing-func-and-delay),
+    height 2.7s var(--transition-timing-func-and-delay);
+}
+
+.ring__outer--transition-breath-in {
+  transition: width 3s var(--transition-timing-func-and-delay),
+    height 3s var(--transition-timing-func-and-delay);
+}
+
+.ring__transition-breath-out {
+  transition: width 6s var(--transition-timing-func-and-delay),
+    height 6s var(--transition-timing-func-and-delay);
+}
+
+.ring__inner--enlarge {
+  width: var(--dimensions-inner-ring);
+  height: var(--dimensions-inner-ring);
+}
+
+.ring__center--enlarge {
+  width: calc(var(--dimensions-inner-ring) * 2);
+  height: calc(var(--dimensions-inner-ring) * 2);
+}
+
+.ring__outer--enlarge {
+  width: calc(var(--dimensions-inner-ring) * 3);
+  height: calc(var(--dimensions-inner-ring) * 3);
+}
+
+.dark-theme {
+  background-color: var(--dark-bg-color);
+  color: var(--light-color);
+}
+
+.dark-theme-report-bug-link {
+  color: var(--light-color);
+}
+
+.btn.dark-theme {
+  background-color: var(--dark-bg-color);
+  color: var(--light-color);
+}
+
+.btn.dark-theme:hover {
+  background-color: var(--close-popup-btn-bg-color-dark-theme);
+  color: #fff;
+}
+
+.btn--bg-color.dark-theme {
+  background-color: var(--close-popup-btn-bg-color-dark-theme);
+  color: #fff;
+}
+
+.btn--bg-color.dark-theme:hover {
+  color: whitesmoke;
+  background-color: #444857;
+}

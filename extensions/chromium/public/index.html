@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./js/index.js" type="module"></script>
+    <title>Breathing</title>
+  </head>
+  <body class="body" id="body">
+    <header class="header">
+      <p>
+        <button class="btn" id="btn-dropdown">&#9776;</button>
+        <button class="btn btn--increase-font-size" id="btn-switch-theme">&#9728;</button>
+      </p>
+      <p id="timer">00:00</p>
+      <p><button class="btn btn--bg-color" id="btn-close-popup" title="Close">&#128473;</button></p>
+    </header>
+    <div class="breathing">
+      <div class="wrapper">
+        <div class="ring ring__outer" id="ring-outer"></div>
+        <div class="ring ring__center" id="ring-center"></div>
+        <div class="ring ring__inner" id="ring-inner"></div>
+        <button class="ring ring__btn" id="control-btn">Go</button>
+      </div>
+    </div>
+    <footer class="footer">
+      <p><a href="#" class="link" id="link-report-bug">Report bug</a></p>
+    </footer>
+  </body>
+</html>

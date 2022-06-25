@@ -1,0 +1,5 @@
+Todos
+
+- Check for system theme at launch. Change theme according to whether it is dark or light theme
+- Implement light and dark theme
+- Implement menu popup. The menu popup should have About, Keyboard shortcuts and Settings sections

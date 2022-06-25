@@ -1,0 +1,12 @@
+{
+  "name": "breathing",
+  "version": "0.0.1",
+  "description": "A simple browser extension to help you relax",
+  "main": "index.js",
+  "scripts": {
+    "build": "sh build.sh"
+  },
+  "keywords": ["Breathing", "Relaxation", "Calm", "Meditate"],
+  "author": "Joseph Mawa",
+  "license": "ISC"
+}
