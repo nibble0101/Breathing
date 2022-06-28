@@ -30,6 +30,7 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   --popup-width: calc(var(--dimensions-inner-ring) * 3 + var(--body-padding));
 
   --focus-outline: 3px solid var(--light-color);
+  /* #8ab4f8 color for footer link hover in dark theme */
 }
 
 * {
@@ -43,8 +44,70 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   padding: 1em;
   transition: background-color var(--transition-timing-func-and-delay),
     color var(--transition-timing-func-and-delay);
-  font-family: Arial, Helvetica, sans-serif;;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
+.header {
+  position: relative;
+}
+
+.header-paragraph-margin-right {
+  margin-right: 0.5em;
+}
+
+/*
+
+Dropdown styles
+
+*/
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 3px + 3px);
+  left: 0px;
+  z-index: calc(var(--z-index-button) * 2);
+  list-style: none;
+  background-color: var(--light-bg-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 1em;
+  display: none;
+  border-radius: 3px;
+}
+
+.header--dropdown-btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  padding: 1px 3px;
+}
+
+.link--dropdown {
+  display: block;
+  color: var(--dark-color);
+  transition: background-color 0.5s ease-in-out;
+  padding: 0.5em;
+  border-radius: 3px;
+}
+
+.link--dropdown:focus,
+.link--dropdown:hover {
+  background-color: var(--btn-hover-bg-color);
+}
+
+.dropdown.display-block {
+  display: block;
+}
+
+/*
+
+Button styles
+
+*/
 
 .btn {
   outline: none;
@@ -65,21 +128,25 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   outline: var(--focus-outline);
 }
 
-.btn--bg-color {
-  background-color: var(--close-popup-btn-bg-color);
-}
-
 .btn:hover {
   background-color: var(--btn-hover-bg-color);
 }
 
-.btn--bg-color:hover {
+.btn--close-popup {
+  background-color: var(--close-popup-btn-bg-color);
+}
+
+.btn--close-popup:hover {
   background-color: var(--close-popup-btn-hover-bg-color);
 }
 
-.btn--increase-font-size {
+/* For the star icon button */
+
+.btn--switch-theme {
   font-size: 1.5em;
 }
+
+/* Header styles */
 
 .header {
   display: flex;
@@ -87,24 +154,33 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   align-items: center;
 }
 
+/*
+
+Footer styles
+
+*/
+
 .footer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.link {
-  text-decoration: none;
-  color: black;
+
+.link--footer {
+  color: var(--dark-color);
   transition: color 0.5s ease-in-out;
-  padding: 1px 3px;
-  border-radius: 1px;
 }
-.link:hover {
-  color: #073f84;
+
+.link--footer:hover {
+  color: #1a0dab;
 }
-.link:focus {
+
+.link--footer:focus {
   outline: var(--focus-outline);
 }
+
+/* Breathing  */
+
 .breathing {
   display: flex;
   flex-direction: column;
@@ -112,11 +188,6 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   align-items: center;
   width: var(--popup-width);
   height: var(--popup-width);
-}
-
-.timer {
-  color: black;
-  text-align: center;
 }
 
 .wrapper {
@@ -152,23 +223,37 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
 }
 
 .ring__btn-exercise-on {
-  box-shadow: 0 0 6px 0 black;
-  background-color: white;
-  color: black;
+  box-shadow: 0 0 6px 0 var(--dark-color);
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
 }
+
+/*
+
+Concentric rings
+
+*/
 
 .ring__inner {
   background-color: var(--bg-color-inner-ring);
   z-index: calc(var(--z-index-button) - 1);
 }
+
 .ring__center {
   background-color: var(--bg-color-center-ring);
   z-index: calc(var(--z-index-button) - 2);
 }
+
 .ring__outer {
   background-color: var(--bg-color-outer-ring);
   z-index: calc(var(--z-index-button) - 3);
 }
+
+/*
+
+Concentric rings breath in transitions
+
+*/
 
 .ring__inner--transition-breath-in {
   transition: width 2.4s var(--transition-timing-func-and-delay),
@@ -185,10 +270,22 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
     height 3s var(--transition-timing-func-and-delay);
 }
 
+/*
+
+Concentric rings breath out transition
+
+*/
+
 .ring__transition-breath-out {
   transition: width 6s var(--transition-timing-func-and-delay),
     height 6s var(--transition-timing-func-and-delay);
 }
+
+/*
+
+Concentric rings enlargement styles
+
+*/
 
 .ring__inner--enlarge {
   width: var(--dimensions-inner-ring);
@@ -205,6 +302,12 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   height: calc(var(--dimensions-inner-ring) * 3);
 }
 
+/*
+
+Dark theme style
+
+*/
+
 .dark-theme {
   background-color: var(--dark-bg-color);
   color: var(--light-color);
@@ -212,6 +315,10 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
 
 .dark-theme-report-bug-link {
   color: var(--light-color);
+}
+
+.dark-theme-report-bug-link:hover {
+  color: #8ab4f8;
 }
 
 .btn.dark-theme {
@@ -224,12 +331,25 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   color: #fff;
 }
 
-.btn--bg-color.dark-theme {
+.btn--close-popup.dark-theme {
   background-color: var(--close-popup-btn-bg-color-dark-theme);
   color: #fff;
 }
 
-.btn--bg-color.dark-theme:hover {
+.btn--close-popup.dark-theme:hover {
   color: whitesmoke;
   background-color: #444857;
+}
+
+.dropdown.dark-theme {
+  background-color: rgb(64, 69, 76);
+  box-shadow: 0px 8px 16px 0px rgba(107, 104, 104, 0.2);
+}
+.dropdown.dark-theme li > a {
+  color: var(--light-color);
+}
+.dropdown.dark-theme li > a:hover,
+.dropdown.dark-theme li > a:focus {
+  background-color: rgb(54, 54, 54);
+  color: var(--light-color);
 }

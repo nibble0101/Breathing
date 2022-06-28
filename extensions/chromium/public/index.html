@@ -10,12 +10,48 @@
   </head>
   <body class="body" id="body">
     <header class="header">
-      <p>
-        <button class="btn" id="btn-dropdown">&#9776;</button>
-        <button class="btn btn--increase-font-size" id="btn-switch-theme">&#9728;</button>
-      </p>
+      <div class="header--dropdown-btn-wrapper">
+        <p class="header-paragraph-margin-right">
+          <button
+            class="btn"
+            id="btn-dropdown"
+            aria-label="Open menu"
+            title="Open menu"
+          >
+            <span aria-hidden="true" id="hamburger-icon-wrapper">&#9776;</span>
+          </button>
+        </p>
+        <ul class="dropdown" id="dropdown">
+          <li>
+            <a href="#" class="link link--dropdown">About Breathing</a>
+          </li>
+          <li>
+            <a href="#" class="link link--dropdown">Keyboard Shortcuts</a>
+          </li>
+        </ul>
+        <p>
+          <button
+            class="btn btn--switch-theme"
+            aria-label="Switch theme"
+            title="Switch theme"
+            id="btn-switch-theme"
+          >
+            <span aria-hidden="true">&#9728;</span>
+          </button>
+        </p>
+      </div>
+
       <p id="timer">00:00</p>
-      <p><button class="btn btn--bg-color" id="btn-close-popup" title="Close">&#128473;</button></p>
+      <p>
+        <button
+          class="btn btn--close-popup"
+          id="btn-close-popup"
+          aria-label="Close popup"
+          title="Close popup"
+        >
+          <span aria-hidden="true"> &#128473;</span>
+        </button>
+      </p>
     </header>
     <div class="breathing">
       <div class="wrapper">
@@ -26,7 +62,11 @@
       </div>
     </div>
     <footer class="footer">
-      <p><a href="#" class="link" id="link-report-bug">Report bug</a></p>
+      <p>
+        <a href="#" class="link link--footer" id="link-report-bug"
+          >Report bug</a
+        >
+      </p>
     </footer>
   </body>
 </html>

@@ -1,3 +1,11 @@
+/**
+ * Delays for a certain number of milliseconds
+ *
+ * @param {duration} duration - Duration in ms
+ * @param {Object} options
+ * @returns
+ */
+
 export const delay = (duration, options = {}) => {
   const { signal } = options;
 
@@ -28,6 +36,15 @@ export const breathIn = delay;
 export const breathOut = delay;
 export const holdBreath = delay;
 
+/**
+ *
+ * Formats time in the form `mm:ss`
+ *
+ * @param {Number} time - The time to format in the form `mm:ss`
+ * @returns Object
+ *
+ */
+
 export const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -38,6 +55,29 @@ export const formatTime = (time) => {
     seconds,
     formattedTimeString: `${minutesString}:${secondsString}`,
   };
+};
+
+
+/**
+ * Sets data to localStorage.
+ * @param {Object} data Data you want to set to local storage in the form { key: value }
+ * @returns
+ */
+ export const setDataToLocalStorage = async (data) => {
+  await chrome.storage.local.set(data);
+  return true;
+};
+
+/**
+ * Get data from localStorage. If keys don't exist it returns {}
+ * It doesn't throw an error if a requested key doesn't exist. The
+ * non existent key will not be part of the returned object
+ * @param {String[]} storagKeys Array of local storage keys.
+ * @returns
+ */
+ export const getDataFromLocalStorage = async (storagKeys) => {
+  const data = await chrome.storage.local.get(storagKeys);
+  return data;
 };
 
 export const removeClass = (element, className) => {
@@ -90,4 +130,12 @@ export const dispatchEvent = (eventTarget, eventName) => {
 export const initializeBeathingState = (breathingState) => {
   breathingState.running = true;
   breathingState.controller = new AbortController();
+};
+
+export const setTitle = (element, title) => {
+  element.title = title;
+};
+
+export const setAriaLabel = (element, label) => {
+  element.setAttribute("aria-label", label);
 };

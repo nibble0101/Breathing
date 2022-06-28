@@ -26,10 +26,15 @@ import {
   changeElementInnerText,
   dispatchEvent,
   initializeBeathingState,
+  setTitle,
+  setAriaLabel,
+  getDataFromLocalStorage,
+  setDataToLocalStorage,
 } from "./utils.js";
 
 const controlBtn = document.getElementById("control-btn");
 const dropdownBtn = document.getElementById("btn-dropdown");
+const dropdown = document.getElementById("dropdown");
 const switchThemeBtn = document.getElementById("btn-switch-theme");
 const closePopupBtn = document.getElementById("btn-close-popup");
 const reportBugLink = document.getElementById("link-report-bug");
@@ -68,6 +73,10 @@ const themedElements = [
     className: "dark-theme",
   },
   {
+    element: dropdown,
+    className: "dark-theme",
+  },
+  {
     element: switchThemeBtn,
     className: "dark-theme",
   },
@@ -102,6 +111,12 @@ const startTimer = (breathingState) => {
 const stopTimer = (breathingState) => {
   clearInterval(breathingState.timerId);
 };
+
+/**
+ *
+ * Breath in and breath out event targets
+ *
+ */
 
 const breathInEventTarget = new EventTarget();
 const breathOutEventTarget = new EventTarget();
@@ -200,8 +215,65 @@ closePopupBtn.addEventListener("click", async () => {
   window.close();
 });
 
-switchThemeBtn.addEventListener("click", () => {
+switchThemeBtn.addEventListener("click", async () => {
   themedElements.forEach(({ element, className }) => {
     element.classList.toggle(className);
   });
+
+  if (switchThemeBtn.classList.contains("dark-theme")) {
+    setTitle(switchThemeBtn, "Toggle light theme");
+    setAriaLabel(switchThemeBtn, "Toggle light theme");
+    await setDataToLocalStorage({ theme: "dark" });
+  } else {
+    setTitle(switchThemeBtn, "Toggle dark theme");
+    setAriaLabel(switchThemeBtn, "Toggle dark theme");
+    await setDataToLocalStorage({ theme: "light" });
+  }
+});
+
+dropdownBtn.addEventListener("click", (event) => {
+  if (dropdown.classList.contains("display-block")) {
+    removeClass(dropdown, "display-block");
+    setTitle(dropdownBtn, "Open menu");
+    setAriaLabel(dropdownBtn, "Open menu");
+  } else {
+    setClass(dropdown, "display-block");
+    setTitle(dropdownBtn, "Close menu");
+    setAriaLabel(dropdownBtn, "Close menu");
+  }
+});
+
+/**
+ *
+ * We need to remove the dropdown menu
+ * when user clicks anywhere when the
+ * dropdown is open. Therefore, we need
+ * to check whether the clicked element
+ * is the dropdown button or one of its
+ * descendants. If it is, we do nothing
+ * because there is an event handler for
+ * the button and its descendants. If it
+ * is not the dropdown button, check whether
+ * the dropdown is open. If open, close it
+ * otherwise do nothing
+ *
+ */
+
+body.addEventListener("click", (event) => {
+  const { id } = event.target;
+  if (id === "btn-dropdown" || id === "hamburger-icon-wrapper") return;
+  if (dropdown.classList.contains("display-block")) {
+    dropdown.classList.remove("display-block");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const { theme } = await getDataFromLocalStorage(["theme"]);
+  if (theme && theme === "dark") {
+    themedElements.forEach(({ element, className }) => {
+      element.classList.toggle(className);
+    });
+    setTitle(switchThemeBtn, "Toggle light theme");
+    setAriaLabel(switchThemeBtn, "Toggle light theme");
+  }
 });
