@@ -1,9 +1,10 @@
 /**
+ * 
  * Delays for a certain number of milliseconds
  *
- * @param {duration} duration - Duration in ms
- * @param {Object} options
- * @returns
+ * @param {duration} duration Duration in ms
+ * @param {Object} options Signal options
+ * @returns  Promise
  */
 
 export const delay = (duration, options = {}) => {
@@ -32,15 +33,21 @@ export const delay = (duration, options = {}) => {
   });
 };
 
+/**
+ * 
+ * References to delay for readability
+ * 
+ */
+
 export const breathIn = delay;
 export const breathOut = delay;
 export const holdBreath = delay;
 
 /**
  *
- * Formats time in the form `mm:ss`
+ * Formats time in the form mm:ss
  *
- * @param {Number} time - The time to format in the form `mm:ss`
+ * @param {Number} time Time to format in seconds
  * @returns Object
  *
  */
@@ -59,7 +66,9 @@ export const formatTime = (time) => {
 
 
 /**
+ * 
  * Sets data to localStorage.
+ * 
  * @param {Object} data Data you want to set to local storage in the form { key: value }
  * @returns
  */
@@ -69,11 +78,13 @@ export const formatTime = (time) => {
 };
 
 /**
+ * 
  * Get data from localStorage. If keys don't exist it returns {}
  * It doesn't throw an error if a requested key doesn't exist. The
  * non existent key will not be part of the returned object
+ * 
  * @param {String[]} storagKeys Array of local storage keys.
- * @returns
+ * @returns  Object
  */
  export const getDataFromLocalStorage = async (storagKeys) => {
   const data = await chrome.storage.local.get(storagKeys);
@@ -100,6 +111,15 @@ export const setClasses = (elements, classDescription) => {
   });
 };
 
+/**
+ * 
+ * Gets transition classes 
+ * 
+ * @param {String} elementClass Base class
+ * @param {Object} classDescriptions Element/Modifier
+ * @returns  Object
+ */
+
 export const getTransitionClasses = (elementClass, classDescriptions) => {
   const { enlargeClass, breathInTransitionClass, breathOutTransitionClass } =
     classDescriptions;
@@ -122,6 +142,14 @@ export const resetBreathingState = (breathingState, durations) => {
 export const changeElementInnerText = (element, text) => {
   element.innerText = text;
 };
+
+/**
+ * 
+ * Dispatche given event
+ * 
+ * @param {Object} eventTarget Event target
+ * @param {String} eventName  Event name 
+ */
 
 export const dispatchEvent = (eventTarget, eventName) => {
   eventTarget.dispatchEvent(new Event(eventName));

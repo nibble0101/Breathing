@@ -90,6 +90,13 @@ const themedElements = [
   },
 ];
 
+/**
+ * 
+ * Triggers countdown and updates the timer on UI
+ * 
+ * @param {Object} breathingState Breathing state
+ */
+
 const startTimer = (breathingState) => {
   const { formattedTimeString } = formatTime(breathingState.time);
   changeElementInnerText(timer, formattedTimeString);
@@ -108,31 +115,54 @@ const startTimer = (breathingState) => {
   }, 1000);
 };
 
+/**
+ * 
+ * Stops the timer
+ * 
+ * @param {Object} breathingState Breathing state
+ */
+
 const stopTimer = (breathingState) => {
   clearInterval(breathingState.timerId);
 };
 
-/**
- *
- * Breath in and breath out event targets
- *
- */
 
+// Breath in and breath out event targets
 const breathInEventTarget = new EventTarget();
 const breathOutEventTarget = new EventTarget();
 
 breathInEventTarget.addEventListener(events.breathIn, async () => {
   try {
+    // Pass signal to every abortable async operation.
+    // Aborts the operation in case user closes popup
+    // or aborts an onging breathing exercise.
     const { signal } = breathingState.controller;
 
+    // Sets breath in transition classes because the
+    // transition time for breath out is different
+    // from breath in.
     setClasses(rings, breathInTransitionClass);
+
+    // Set enlarge class so that the rings enlarge
+    // to their maximum size during breath in.
     setClasses(rings, enlargeClass);
 
+    // Hold breath at the start of breath in. This pause
+    // should be the same as the transition delay in CSS.
     await holdBreath(500, { signal });
+
+    // Set control button inner text to "In" during
+    // breath in.
     changeElementInnerText(controlBtn, "In");
+
+    // Wait as user breaths in. This breath in time
+    // should be the same as the longest transition
+    // duration in CSS - duration for outer ring.
     await breathIn(3000, { signal });
 
     removeClasses(rings, breathInTransitionClass);
+
+    // Dispatch event to trigger breath out.
     dispatchEvent(breathOutEventTarget, events.breathOut);
   } catch (error) {
     if (error.name === "AbortError") {
@@ -145,16 +175,38 @@ breathInEventTarget.addEventListener(events.breathIn, async () => {
 
 breathOutEventTarget.addEventListener(events.breathOut, async () => {
   try {
+    // Pass signal to every abortable async operation.
+    // Aborts the operation in case user closes popup
+    // or aborts an onging breathing exercise.
     const { signal } = breathingState.controller;
 
+    // Sets breath out transition classes because the
+    // transition time for breath-out is different
+    // from breath-in.
     setClasses(rings, breathOutTransitionClass);
+
+    // Removes enlarge class so that the rings collapse
+    // to their original size during breath out.
     removeClasses(rings, enlargeClass);
 
+    // Hold breath at the start of breath- out. This pause
+    // should be the same as the transition delay in CSS.
     await holdBreath(500, { signal });
+
+    // Change control button inner text to "Out" during
+    // breath out
     changeElementInnerText(controlBtn, "Out");
+
+    // Wait as user breaths out. This breath out time
+    // should be the same as the breath out transition
+    // duration in CSS.
     await breathOut(6000, { signal });
 
+    // Remove breath out transition classes at the end
+    // of breath out to stop further expansion of rings.
     removeClasses(rings, breathOutTransitionClass);
+
+    // Dispatch event to trigger breath in.
     dispatchEvent(breathInEventTarget, events.breathIn);
   } catch (error) {
     if (error.name === "AbortError") {
@@ -165,6 +217,11 @@ breathOutEventTarget.addEventListener(events.breathOut, async () => {
   }
 });
 
+/**
+ * 
+ * Starts the breathing exercise
+ * 
+ */
 const startBreathingExercise = () => {
   initializeBeathingState(breathingState);
 
@@ -175,6 +232,11 @@ const startBreathingExercise = () => {
   dispatchEvent(breathInEventTarget, events.breathIn);
 };
 
+/**
+ * 
+ * Stops the breathing exercise and resets state
+ * 
+ */
 const stopBreathingExercise = async () => {
   breathingState.controller.abort();
 
@@ -270,6 +332,8 @@ body.addEventListener("click", (event) => {
 document.addEventListener("DOMContentLoaded", async () => {
   const { theme } = await getDataFromLocalStorage(["theme"]);
   if (theme && theme === "dark") {
+    // Extract this logic to a function because it
+    // has been repeated.
     themedElements.forEach(({ element, className }) => {
       element.classList.toggle(className);
     });

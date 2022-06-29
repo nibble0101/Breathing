@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "manifest_version": 3,
     "permissions": ["storage"],
+    "options_page": "public/options.html",
     "background": {
       "service_worker": "background.js",
       "type": "module"
