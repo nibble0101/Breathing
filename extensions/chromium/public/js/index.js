@@ -8,8 +8,9 @@ Check https://stackoverflow.com/questions/48492163/removeclass-doesnt-stop-trans
 import {
   events,
   durations,
-  breathingState,
   classDescriptions,
+  messages,
+  initialBreathingState,
 } from "./constants.js";
 
 import {
@@ -22,14 +23,13 @@ import {
   setClass,
   setClasses,
   getTransitionClasses,
-  resetBreathingState,
-  changeElementInnerText,
+  setElementInnerText,
   dispatchEvent,
-  initializeBeathingState,
-  setTitle,
-  setAriaLabel,
   getDataFromLocalStorage,
   setDataToLocalStorage,
+  setAttribute,
+  updateState,
+  getMessages,
 } from "./utils.js";
 
 const controlBtn = document.getElementById("control-btn");
@@ -38,15 +38,15 @@ const dropdown = document.getElementById("dropdown");
 const switchThemeBtn = document.getElementById("btn-switch-theme");
 const closePopupBtn = document.getElementById("btn-close-popup");
 const reportBugLink = document.getElementById("link-report-bug");
-
+const timer = document.getElementById("timer");
 const body = document.getElementById("body");
 
 const controlBtnExerciseOnClass = "ring__btn-exercise-on";
 
-const timer = document.getElementById("timer");
-
 const { enlargeClass, breathInTransitionClass, breathOutTransitionClass } =
   classDescriptions;
+
+const breathingState = { ...initialBreathingState };
 
 const rings = [
   {
@@ -91,15 +91,13 @@ const themedElements = [
 ];
 
 /**
- * 
  * Triggers countdown and updates the timer on UI
- * 
+ *
  * @param {Object} breathingState Breathing state
  */
-
 const startTimer = (breathingState) => {
   const { formattedTimeString } = formatTime(breathingState.time);
-  changeElementInnerText(timer, formattedTimeString);
+  setElementInnerText(timer, formattedTimeString);
 
   breathingState.timerId = setInterval(() => {
     breathingState.time -= 1;
@@ -107,7 +105,7 @@ const startTimer = (breathingState) => {
     const { minutes, seconds, formattedTimeString } = formatTime(
       breathingState.time
     );
-    changeElementInnerText(timer, formattedTimeString);
+    setElementInnerText(timer, formattedTimeString);
 
     if (minutes === 0 && seconds === 0) {
       stopBreathingExercise();
@@ -116,9 +114,41 @@ const startTimer = (breathingState) => {
 };
 
 /**
- * 
+ * Switch theme
+ */
+const switchTheme = () => {
+  themedElements.forEach(({ element, className }) => {
+    element.classList.toggle(className);
+  });
+
+  if (breathingState.isDarkTheme) {
+    setAttribute(
+      switchThemeBtn,
+      "title",
+      messages.toggleLightThemeTitleText.message
+    );
+    setAttribute(
+      switchThemeBtn,
+      "aria-label",
+      messages.toggleLightThemeAriaLabel.message
+    );
+  } else {
+    setAttribute(
+      switchThemeBtn,
+      "title",
+      messages.toggleDarkThemeTitleText.message
+    );
+    setAttribute(
+      switchThemeBtn,
+      "aria-label",
+      messages.toggleDarkThemeAriaLabel.message
+    );
+  }
+};
+
+/**
  * Stops the timer
- * 
+ *
  * @param {Object} breathingState Breathing state
  */
 
@@ -126,6 +156,36 @@ const stopTimer = (breathingState) => {
   clearInterval(breathingState.timerId);
 };
 
+/**
+ * Initializes the UI
+ */
+
+const initUI = () => {
+  setAttribute(dropdownBtn, "title", messages.closeMenuTitleText.message);
+  setAttribute(dropdownBtn, "aria-label", messages.closeMenuAriaLabel.message);
+
+  setAttribute(
+    switchThemeBtn,
+    "title",
+    messages.toggleDarkThemeTitleText.message
+  );
+  setAttribute(
+    switchThemeBtn,
+    "aria-label",
+    messages.toggleDarkThemeAriaLabel.message
+  );
+
+  setAttribute(closePopupBtn, "title", messages.closePopupTitleText.message);
+  setAttribute(
+    closePopupBtn,
+    "aria-label",
+    messages.closePopupAriaLabel.message
+  );
+
+  controlBtn.textContent = messages.defaultControlBtnText.message;
+
+  reportBugLink.textContent = messages.reportBugAnchorText.message;
+};
 
 // Breath in and breath out event targets
 const breathInEventTarget = new EventTarget();
@@ -153,7 +213,7 @@ breathInEventTarget.addEventListener(events.breathIn, async () => {
 
     // Set control button inner text to "In" during
     // breath in.
-    changeElementInnerText(controlBtn, "In");
+    setElementInnerText(controlBtn, "In");
 
     // Wait as user breaths in. This breath in time
     // should be the same as the longest transition
@@ -195,7 +255,7 @@ breathOutEventTarget.addEventListener(events.breathOut, async () => {
 
     // Change control button inner text to "Out" during
     // breath out
-    changeElementInnerText(controlBtn, "Out");
+    setElementInnerText(controlBtn, "Out");
 
     // Wait as user breaths out. This breath out time
     // should be the same as the breath out transition
@@ -218,12 +278,16 @@ breathOutEventTarget.addEventListener(events.breathOut, async () => {
 });
 
 /**
- * 
+ *
  * Starts the breathing exercise
- * 
+ *
  */
 const startBreathingExercise = () => {
-  initializeBeathingState(breathingState);
+  // Initializing breathing state
+  updateState(breathingState, {
+    running: true,
+    controller: new AbortController(),
+  });
 
   setClass(controlBtn, controlBtnExerciseOnClass);
   setClasses(rings, breathInTransitionClass);
@@ -233,9 +297,9 @@ const startBreathingExercise = () => {
 };
 
 /**
- * 
+ *
  * Stops the breathing exercise and resets state
- * 
+ *
  */
 const stopBreathingExercise = async () => {
   breathingState.controller.abort();
@@ -247,10 +311,16 @@ const stopBreathingExercise = async () => {
   removeClasses(rings, breathInTransitionClass);
   removeClass(controlBtn, controlBtnExerciseOnClass);
 
-  changeElementInnerText(controlBtn, "Go");
-  changeElementInnerText(timer, "00:00");
+  setElementInnerText(controlBtn, "Go");
+  setElementInnerText(timer, "00:00");
 
-  resetBreathingState(breathingState, durations);
+  // Reset breathing state
+  updateState(breathingState, {
+    running: false,
+    signal: null,
+    timerId: null,
+    time: durations.total / 1000,
+  });
 };
 
 controlBtn.addEventListener("click", async () => {
@@ -278,17 +348,12 @@ closePopupBtn.addEventListener("click", async () => {
 });
 
 switchThemeBtn.addEventListener("click", async () => {
-  themedElements.forEach(({ element, className }) => {
-    element.classList.toggle(className);
-  });
+  updateState(breathingState, { isDarkTheme: !breathingState.isDarkTheme });
+  switchTheme();
 
-  if (switchThemeBtn.classList.contains("dark-theme")) {
-    setTitle(switchThemeBtn, "Toggle light theme");
-    setAriaLabel(switchThemeBtn, "Toggle light theme");
+  if (breathingState.isDarkTheme) {
     await setDataToLocalStorage({ theme: "dark" });
   } else {
-    setTitle(switchThemeBtn, "Toggle dark theme");
-    setAriaLabel(switchThemeBtn, "Toggle dark theme");
     await setDataToLocalStorage({ theme: "light" });
   }
 });
@@ -296,12 +361,16 @@ switchThemeBtn.addEventListener("click", async () => {
 dropdownBtn.addEventListener("click", (event) => {
   if (dropdown.classList.contains("display-block")) {
     removeClass(dropdown, "display-block");
-    setTitle(dropdownBtn, "Open menu");
-    setAriaLabel(dropdownBtn, "Open menu");
+    setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
+    setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
   } else {
     setClass(dropdown, "display-block");
-    setTitle(dropdownBtn, "Close menu");
-    setAriaLabel(dropdownBtn, "Close menu");
+    setAttribute(dropdownBtn, "title", messages.closeMenuTitleText.message);
+    setAttribute(
+      dropdownBtn,
+      "aria-label",
+      messages.closeMenuAriaLabel.message
+    );
   }
 });
 
@@ -325,19 +394,29 @@ body.addEventListener("click", (event) => {
   const { id } = event.target;
   if (id === "btn-dropdown" || id === "hamburger-icon-wrapper") return;
   if (dropdown.classList.contains("display-block")) {
-    dropdown.classList.remove("display-block");
+    removeClass(dropdown, "display-block");
+    setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
+    setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
   }
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const { theme } = await getDataFromLocalStorage(["theme"]);
-  if (theme && theme === "dark") {
-    // Extract this logic to a function because it
-    // has been repeated.
-    themedElements.forEach(({ element, className }) => {
-      element.classList.toggle(className);
-    });
-    setTitle(switchThemeBtn, "Toggle light theme");
-    setAriaLabel(switchThemeBtn, "Toggle light theme");
+  const { theme, breathingCycles } = await getDataFromLocalStorage([
+    "theme",
+    "breathingCycles",
+  ]);
+
+  if (breathingCycles) {
+    durations.cycles = breathingCycles;
   }
+
+  updateState(breathingState, { time: durations.total / 1000 });
+  getMessages(messages);
+
+  if (theme === "dark") {
+    updateState(breathingState, { isDarkTheme: true });
+    switchTheme();
+  }
+
+  initUI();
 });

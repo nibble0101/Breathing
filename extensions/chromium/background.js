@@ -4,7 +4,7 @@ const setDataToLocalStorage = async (data) => {
 
 chrome.runtime.onInstalled.addListener(async () => {
   try {
-    await setDataToLocalStorage({ theme: "light" });
+    await setDataToLocalStorage({ theme: "light", breathingCycles: 10 });
   } catch (error) {
     console.error(error);
   }

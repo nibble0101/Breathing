@@ -13,11 +13,12 @@ export const durations = {
   },
 };
 
-export const breathingState = {
+export const initialBreathingState = {
   running: false,
   controller: null,
   timerId: null,
-  time: durations.total / 1000,
+  isDarkTheme: false,
+  time: null,
 };
 
 export const classDescriptions = {
@@ -25,4 +26,23 @@ export const classDescriptions = {
   enlargeClass: "enlargeClass",
   breathInTransitionClass: "breathInTransitionClass",
   breathOutTransitionClass: "breathOutTransitionClass",
+};
+
+export const messages = {
+  defaultControlBtnText: {},
+  breathInText: {},
+  breathOutText: {},
+  reportBugAnchorText: {},
+  aboutMenuText: {},
+  keyboardShortcutMenuText: {},
+  openMenuTitleText: {},
+  closeMenuTitleText: {},
+  openMenuAriaLabel: {},
+  closeMenuAriaLabel: {},
+  toggleDarkThemeTitleText: {},
+  toggleLightThemeTitleText: {},
+  toggleDarkThemeAriaLabel: {},
+  toggleLightThemeAriaLabel: {},
+  closePopupTitleText: {},
+  closePopupAriaLabel: {},
 };

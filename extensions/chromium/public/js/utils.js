@@ -1,9 +1,8 @@
 /**
- * 
  * Delays for a certain number of milliseconds
  *
- * @param {duration} duration Duration in ms
- * @param {Object} options Signal options
+ * @param {duration} duration - Duration in ms
+ * @param {Object} options - Signal options
  * @returns  Promise
  */
 
@@ -34,24 +33,19 @@ export const delay = (duration, options = {}) => {
 };
 
 /**
- * 
  * References to delay for readability
- * 
  */
-
 export const breathIn = delay;
 export const breathOut = delay;
 export const holdBreath = delay;
 
 /**
- *
  * Formats time in the form mm:ss
  *
- * @param {Number} time Time to format in seconds
+ * @param {Number} time - Time to format in seconds
  * @returns Object
  *
  */
-
 export const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -64,29 +58,26 @@ export const formatTime = (time) => {
   };
 };
 
-
 /**
- * 
  * Sets data to localStorage.
- * 
- * @param {Object} data Data you want to set to local storage in the form { key: value }
+ *
+ * @param {Object} data - Data you want to set to local storage in the form { key: value }
  * @returns
  */
- export const setDataToLocalStorage = async (data) => {
+export const setDataToLocalStorage = async (data) => {
   await chrome.storage.local.set(data);
   return true;
 };
 
 /**
- * 
  * Get data from localStorage. If keys don't exist it returns {}
  * It doesn't throw an error if a requested key doesn't exist. The
  * non existent key will not be part of the returned object
- * 
- * @param {String[]} storagKeys Array of local storage keys.
+ *
+ * @param {String[]} storagKeys - Array of local storage keys.
  * @returns  Object
  */
- export const getDataFromLocalStorage = async (storagKeys) => {
+export const getDataFromLocalStorage = async (storagKeys) => {
   const data = await chrome.storage.local.get(storagKeys);
   return data;
 };
@@ -112,14 +103,12 @@ export const setClasses = (elements, classDescription) => {
 };
 
 /**
- * 
- * Gets transition classes 
- * 
- * @param {String} elementClass Base class
- * @param {Object} classDescriptions Element/Modifier
+ * Gets transition classes
+ *
+ * @param {String} elementClass - Base class
+ * @param {Object} classDescriptions - Element/Modifier
  * @returns  Object
  */
-
 export const getTransitionClasses = (elementClass, classDescriptions) => {
   const { enlargeClass, breathInTransitionClass, breathOutTransitionClass } =
     classDescriptions;
@@ -132,38 +121,56 @@ export const getTransitionClasses = (elementClass, classDescriptions) => {
   };
 };
 
-export const resetBreathingState = (breathingState, durations) => {
-  breathingState.running = false;
-  breathingState.signal = null;
-  breathingState.timerId = null;
-  breathingState.time = durations.total / 1000;
-};
-
-export const changeElementInnerText = (element, text) => {
+/**
+ * Sets the inner text of a DOM element
+ * 
+ * @param {Object} element - DOM element
+ * @param {String} text - Text
+ */
+export const setElementInnerText = (element, text) => {
   element.innerText = text;
 };
 
 /**
- * 
  * Dispatche given event
- * 
- * @param {Object} eventTarget Event target
- * @param {String} eventName  Event name 
+ *
+ * @param {Object} eventTarget - Event target
+ * @param {String} eventName - Event name
  */
-
 export const dispatchEvent = (eventTarget, eventName) => {
   eventTarget.dispatchEvent(new Event(eventName));
 };
 
-export const initializeBeathingState = (breathingState) => {
-  breathingState.running = true;
-  breathingState.controller = new AbortController();
+/**
+ * Make updates to the current state
+ *
+ * @param {Object} currentState - The current state
+ * @param {Object} updates - Updates
+ */
+export const updateState = (currentState, updates) => {
+  for (const prop in updates) {
+    currentState[prop] = updates[prop];
+  }
 };
 
-export const setTitle = (element, title) => {
-  element.title = title;
+/**
+ * Sets DOM element attribute
+ *
+ * @param {Object} element - DOM element
+ * @param {String} attributeName - Valid element attribute
+ * @param {String} attributeValue - Attribute value
+ */
+export const setAttribute = (element, attributeName, attributeValue) => {
+  element.setAttribute(attributeName, attributeValue);
 };
 
-export const setAriaLabel = (element, label) => {
-  element.setAttribute("aria-label", label);
+/**
+ * Retrieves messages from message.json file for updating UI
+ *
+ * @param {Object} messages - Message names for updating UI
+ */
+export const getMessages = (messages) => {
+  for (const messageName in messages) {
+    messages[messageName].message = chrome.i18n.getMessage(messageName);
+  }
 };

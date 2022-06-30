@@ -1,27 +1,27 @@
 {
-    "name": "Breathing",
-    "description": "Start your day feeling calm by just breathing in and out",
-    "version": "0.0.1",
-    "manifest_version": 3,
-    "permissions": ["storage"],
-    "options_page": "public/options.html",
-    "background": {
-      "service_worker": "background.js",
-      "type": "module"
-    },
-    "action": {
-      "default_popup": "public/index.html",
-      "default_title": "Breathing",
-      "default_icon": {
-        "16": "public/icons/test_16.png",
-        "32": "public/icons/test_32.png"
-      }
-    },
-    "icons": {
+  "name": "Breathing",
+  "description": "__MSG_extensionDescription__",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "default_locale": "en",
+  "permissions": ["storage"],
+  "options_page": "public/options.html",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "public/index.html",
+    "default_title": "__MSG_defaultTitle__",
+    "default_icon": {
       "16": "public/icons/test_16.png",
-      "32": "public/icons/test_32.png",
-      "48": "public/icons/test_48.png",
-      "128": "public/icons/test_128.png"
+      "32": "public/icons/test_32.png"
     }
+  },
+  "icons": {
+    "16": "public/icons/test_16.png",
+    "32": "public/icons/test_32.png",
+    "48": "public/icons/test_48.png",
+    "128": "public/icons/test_128.png"
   }
-  
+}
