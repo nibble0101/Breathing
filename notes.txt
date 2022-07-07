@@ -2,4 +2,9 @@ Todos
 
 - Check for system theme at launch. Change theme according to whether it is dark or light theme
 - Implement light and dark theme
-- Implement menu popup. The menu popup should have About, Keyboard shortcuts and Settings sections
+- Add "Open Settings" section in the menu popup
+- Switch the control button text with localized text from message.json when session is on or off
+- Implement dropdown menu item href values so that they open at the correct location
+- Finish styling options page
+- Implement keyboard shortcuts.
+- Add project README.md

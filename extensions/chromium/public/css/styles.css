@@ -23,6 +23,12 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
 
   --close-popup-btn-bg-color-dark-theme: #5c5b5b;
 
+  /* 
+     This transition delay should correspond with the
+     hold duration in JavaScript. If you chnage this
+     value, change the corresponding value of
+     durations.hold in index.js as well
+   */
   --transition-timing-func-and-delay: ease-in-out 0.5s;
 
   --z-index-button: 999;
@@ -42,8 +48,7 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   background-color: var(--light-bg-color);
   color: var(--dark-color);
   padding: 1em;
-  transition: background-color 0.5s ease-in-out,
-    color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -56,9 +61,7 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
 }
 
 /*
-
-Dropdown styles
-
+ Dropdown styles
 */
 
 .dropdown {
@@ -104,9 +107,7 @@ Dropdown styles
 }
 
 /*
-
-Button styles
-
+ Button styles
 */
 
 .btn {
@@ -155,9 +156,7 @@ Button styles
 }
 
 /*
-
-Footer styles
-
+ Footer styles
 */
 
 .footer {
@@ -207,6 +206,16 @@ Footer styles
 }
 
 .ring__btn {
+  /* 
+    The dimensions of the button ring are
+    longer than that of other rings to prevent
+    ugly ridges which appear when we set it to
+    48px like the other rings. The rings are 
+    stacked ontop of each other. This is the
+    topmost ring.
+  */
+  width: 50px;
+  height: 50px;
   transition: all 200ms ease-in-out;
   opacity: 1;
   font-weight: bold;
@@ -229,9 +238,7 @@ Footer styles
 }
 
 /*
-
-Concentric rings
-
+ Concentric rings
 */
 
 .ring__inner {
@@ -250,9 +257,7 @@ Concentric rings
 }
 
 /*
-
-Concentric rings breath in transitions
-
+ Concentric rings breath in transitions
 */
 
 .ring__inner--transition-breath-in {
@@ -266,25 +271,33 @@ Concentric rings breath in transitions
 }
 
 .ring__outer--transition-breath-in {
+  /* 
+     This transition duration should correspond with the
+     breath in duration in JavaScript. If you chnage this
+     value, change the corresponding value of durations.in
+     in constants.js as well.
+   */
   transition: width 3s var(--transition-timing-func-and-delay),
     height 3s var(--transition-timing-func-and-delay);
 }
 
 /*
-
-Concentric rings breath out transition
-
+ Concentric rings breath out transition
 */
 
 .ring__transition-breath-out {
+  /*
+    This transition duration should correspond with the
+    breath out duration in JavaScript. If you chnage this
+    value, change the corresponding value of durations.out 
+    in constants.js as well.
+   */
   transition: width 6s var(--transition-timing-func-and-delay),
     height 6s var(--transition-timing-func-and-delay);
 }
 
 /*
-
-Concentric rings enlargement styles
-
+ Concentric rings enlargement styles
 */
 
 .ring__inner--enlarge {
@@ -303,9 +316,7 @@ Concentric rings enlargement styles
 }
 
 /*
-
-Dark theme style
-
+ Dark theme style
 */
 
 .dark-theme {

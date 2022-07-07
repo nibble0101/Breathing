@@ -3,13 +3,47 @@ export const events = {
   breathOut: "BREATH_OUT",
 };
 
+/**
+ * These figures should correspond with
+ * the CSS transition durations. If you
+ * change any value here, do update the 
+ * corresponding CSS transition duration.
+ * Consider retrieving some of these values
+ * from CSS variables.
+ */
 export const durations = {
+  /**
+   * Breath in duration
+   */
   in: 3000,
+
+  /** 
+   * Breath out duration 
+   */
   out: 6000,
+
+  /**
+   * Breathing cycles. Default is 10.
+   * User can change this from options
+   * page. Retrieve the value user has
+   * set from storage.local and update
+   * in DOMContentLoaded event handler
+   */
   cycles: 10,
+
+  /**
+   * Pause breathing duration. At the 
+   * end of each breath-in or breath-out. 
+   */
   hold: 500,
+
+  /**
+   * Retrieves the duration for a breathing 
+   * session in seconds.
+   */
   get total() {
-    return this.cycles * (this.in + this.out + 2 * this.hold);
+    const totalInMs = this.cycles * (this.in + this.out + 2 * this.hold);
+    return totalInMs / 1000;
   },
 };
 
@@ -19,6 +53,7 @@ export const initialBreathingState = {
   timerId: null,
   isDarkTheme: false,
   time: null,
+  isDropdownOpen: false,
 };
 
 export const classDescriptions = {

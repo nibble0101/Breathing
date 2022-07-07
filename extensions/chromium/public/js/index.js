@@ -151,7 +151,6 @@ const switchTheme = () => {
  *
  * @param {Object} breathingState Breathing state
  */
-
 const stopTimer = (breathingState) => {
   clearInterval(breathingState.timerId);
 };
@@ -159,10 +158,9 @@ const stopTimer = (breathingState) => {
 /**
  * Initializes the UI
  */
-
 const initUI = () => {
-  setAttribute(dropdownBtn, "title", messages.closeMenuTitleText.message);
-  setAttribute(dropdownBtn, "aria-label", messages.closeMenuAriaLabel.message);
+  setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
+  setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
 
   setAttribute(
     switchThemeBtn,
@@ -187,42 +185,58 @@ const initUI = () => {
   reportBugLink.textContent = messages.reportBugAnchorText.message;
 };
 
-// Breath in and breath out event targets
+/**
+ * Breath in and breath out event targets
+ */
 const breathInEventTarget = new EventTarget();
 const breathOutEventTarget = new EventTarget();
 
 breathInEventTarget.addEventListener(events.breathIn, async () => {
   try {
-    // Pass signal to every abortable async operation.
-    // Aborts the operation in case user closes popup
-    // or aborts an onging breathing exercise.
+    /**
+     * Pass signal to every abortable async operation.
+     * Aborts the operation in case user closes popup
+     * or aborts an onging breathing exercise.
+     */
     const { signal } = breathingState.controller;
 
-    // Sets breath in transition classes because the
-    // transition time for breath out is different
-    // from breath in.
+    /**
+     * Sets breath in transition classes because the
+     * transition time for breath out is different
+     * from breath in.
+     */
     setClasses(rings, breathInTransitionClass);
 
-    // Set enlarge class so that the rings enlarge
-    // to their maximum size during breath in.
+    /**
+     * Set enlarge class so that the rings enlarge
+     * to their maximum size during breath in.
+     */
     setClasses(rings, enlargeClass);
 
-    // Hold breath at the start of breath in. This pause
-    // should be the same as the transition delay in CSS.
-    await holdBreath(500, { signal });
+    /**
+     * Hold breath at the start of breath in. This pause
+     * should be the same as the transition delay in CSS.
+     */
+    await holdBreath(durations.hold, { signal });
 
-    // Set control button inner text to "In" during
-    // breath in.
-    setElementInnerText(controlBtn, "In");
+    /**
+     * Set control button inner text to "In" during
+     * breath in.
+     */
+    setElementInnerText(controlBtn, messages.breathInText.message);
 
-    // Wait as user breaths in. This breath in time
-    // should be the same as the longest transition
-    // duration in CSS - duration for outer ring.
-    await breathIn(3000, { signal });
+    /**
+     * Wait as user breaths in. This breath in time
+     * should be the same as the longest transition
+     * duration in CSS - duration for outer ring.
+     */
+    await breathIn(durations.in, { signal });
 
     removeClasses(rings, breathInTransitionClass);
 
-    // Dispatch event to trigger breath out.
+    /**
+     * Dispatch event to trigger breath out.
+     */
     dispatchEvent(breathOutEventTarget, events.breathOut);
   } catch (error) {
     if (error.name === "AbortError") {
@@ -235,38 +249,54 @@ breathInEventTarget.addEventListener(events.breathIn, async () => {
 
 breathOutEventTarget.addEventListener(events.breathOut, async () => {
   try {
-    // Pass signal to every abortable async operation.
-    // Aborts the operation in case user closes popup
-    // or aborts an onging breathing exercise.
+    /**
+     * Pass signal to every abortable async operation.
+     * Aborts the operation in case user closes popup
+     * or aborts an onging breathing exercise.
+     */
     const { signal } = breathingState.controller;
 
-    // Sets breath out transition classes because the
-    // transition time for breath-out is different
-    // from breath-in.
+    /**
+     * Sets breath out transition classes because the
+     * transition time for breath-out is different
+     * from breath-in.
+     */
     setClasses(rings, breathOutTransitionClass);
 
-    // Removes enlarge class so that the rings collapse
-    // to their original size during breath out.
+    /**
+     * Removes enlarge class so that the rings collapse
+     * to their original size during breath out.
+     */
     removeClasses(rings, enlargeClass);
 
-    // Hold breath at the start of breath- out. This pause
-    // should be the same as the transition delay in CSS.
-    await holdBreath(500, { signal });
+    /**
+     * Hold breath at the start of breath- out. This pause
+     * should be the same as the transition delay in CSS.
+     */
+    await holdBreath(durations.hold, { signal });
 
-    // Change control button inner text to "Out" during
-    // breath out
-    setElementInnerText(controlBtn, "Out");
+    /**
+     * Change control button inner text to "Out" during
+     * breath out
+     */
+    setElementInnerText(controlBtn, messages.breathOutText.message);
 
-    // Wait as user breaths out. This breath out time
-    // should be the same as the breath out transition
-    // duration in CSS.
-    await breathOut(6000, { signal });
+    /**
+     * Wait as user breaths out. This breath out time
+     * should be the same as the breath out transition
+     * duration in CSS.
+     */
+    await breathOut(durations.out, { signal });
 
-    // Remove breath out transition classes at the end
-    // of breath out to stop further expansion of rings.
+    /**
+     * Remove breath out transition classes at the end
+     * of breath out to stop further expansion of rings.
+     */
     removeClasses(rings, breathOutTransitionClass);
 
-    // Dispatch event to trigger breath in.
+    /**
+     * Dispatch event to trigger breath in.
+     */
     dispatchEvent(breathInEventTarget, events.breathIn);
   } catch (error) {
     if (error.name === "AbortError") {
@@ -278,12 +308,12 @@ breathOutEventTarget.addEventListener(events.breathOut, async () => {
 });
 
 /**
- *
  * Starts the breathing exercise
- *
  */
 const startBreathingExercise = () => {
-  // Initializing breathing state
+  /**
+   * Initializing breathing state
+   */
   updateState(breathingState, {
     running: true,
     controller: new AbortController(),
@@ -297,9 +327,7 @@ const startBreathingExercise = () => {
 };
 
 /**
- *
  * Stops the breathing exercise and resets state
- *
  */
 const stopBreathingExercise = async () => {
   breathingState.controller.abort();
@@ -311,16 +339,38 @@ const stopBreathingExercise = async () => {
   removeClasses(rings, breathInTransitionClass);
   removeClass(controlBtn, controlBtnExerciseOnClass);
 
-  setElementInnerText(controlBtn, "Go");
+  setElementInnerText(controlBtn, messages.defaultControlBtnText.message);
   setElementInnerText(timer, "00:00");
 
-  // Reset breathing state
+  /**
+   * Reset breathing state
+   */
   updateState(breathingState, {
     running: false,
     signal: null,
     timerId: null,
-    time: durations.total / 1000,
+    time: durations.total,
   });
+};
+
+/**
+ * Open dropdown menu
+ */
+const openDropDownMenu = () => {
+  setClass(dropdown, "display-block");
+  setAttribute(dropdownBtn, "title", messages.closeMenuTitleText.message);
+  setAttribute(dropdownBtn, "aria-label", messages.closeMenuAriaLabel.message);
+  updateState(breathingState, { isDropdownOpen: true });
+};
+
+/**
+ * Close dropdown menu
+ */
+const closeDropDownMenu = () => {
+  removeClass(dropdown, "display-block");
+  setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
+  setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
+  updateState(breathingState, { isDropdownOpen: false });
 };
 
 controlBtn.addEventListener("click", async () => {
@@ -359,44 +409,28 @@ switchThemeBtn.addEventListener("click", async () => {
 });
 
 dropdownBtn.addEventListener("click", (event) => {
-  if (dropdown.classList.contains("display-block")) {
-    removeClass(dropdown, "display-block");
-    setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
-    setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
+  /**
+   * Prevent click event from bubbling to
+   * the body element. We should be able
+   * to close the dropdown when user clicks
+   * on the body when dropdown is open.
+   */
+  event.stopPropagation();
+  if (breathingState.isDropdownOpen) {
+    closeDropDownMenu();
   } else {
-    setClass(dropdown, "display-block");
-    setAttribute(dropdownBtn, "title", messages.closeMenuTitleText.message);
-    setAttribute(
-      dropdownBtn,
-      "aria-label",
-      messages.closeMenuAriaLabel.message
-    );
+    openDropDownMenu();
   }
 });
 
 /**
- *
- * We need to remove the dropdown menu
+ * We need to close the dropdown menu
  * when user clicks anywhere when the
- * dropdown is open. Therefore, we need
- * to check whether the clicked element
- * is the dropdown button or one of its
- * descendants. If it is, we do nothing
- * because there is an event handler for
- * the button and its descendants. If it
- * is not the dropdown button, check whether
- * the dropdown is open. If open, close it
- * otherwise do nothing
- *
+ * dropdown is open.
  */
-
-body.addEventListener("click", (event) => {
-  const { id } = event.target;
-  if (id === "btn-dropdown" || id === "hamburger-icon-wrapper") return;
-  if (dropdown.classList.contains("display-block")) {
-    removeClass(dropdown, "display-block");
-    setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
-    setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
+body.addEventListener("click", () => {
+  if (breathingState.isDropdownOpen) {
+    closeDropDownMenu();
   }
 });
 
@@ -410,13 +444,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     durations.cycles = breathingCycles;
   }
 
-  updateState(breathingState, { time: durations.total / 1000 });
+  updateState(breathingState, { time: durations.total });
   getMessages(messages);
+  initUI();
 
   if (theme === "dark") {
     updateState(breathingState, { isDarkTheme: true });
     switchTheme();
   }
-
-  initUI();
 });
