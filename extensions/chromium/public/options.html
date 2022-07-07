@@ -4,50 +4,140 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/options.css" />
+    <script src="./js/options.js" defer></script>
+    <title>Breathing</title>
   </head>
   <body>
-    <h1>
+    <header class="header">
       <img
-        src="./images/breathing.svg"
+        src="./icons/test_128.png"
         alt="Breathing icon"
-        width="300"
-        height="300"
+        width="128"
+        height="128"
+        class="icon"
       />
-      <span>Breathing</span>
-    </h1>
-    <section>
-      <h2>About Breathing</h2>
-    </section>
-    <section>
-      <h2>License</h2>
-      <p>
-        Breathing is a free software and will always be free. It is released
-        under the terms of the <a href="#">GPL Lesser v2 license</a>. You can
-        access the source code for the browser extension from github and for the corresponding
-        desktop GNOME desktop app from github.
-      </p>
-    </section>
-    <section>
-      <h2>Keyboard shortcuts</h2>
-    </section>
-    <section>
-      <h2>Settings</h2>
-      <label>
-        Session count
-        <input
-          type="number"
-          value="10"
-          min="10"
-          max="100"
-          name="session-count"
-          id="session-count"
-      /></label>
-    </section>
-    <footer>
-      <p>
-        Copyright &copy; <a href="#"> Joseph Mawa</a> and
-        <a href="#"> Dave Patrick</a>
+      <h1>Breathing</h1>
+    </header>
+    <div class="sections-wrapper">
+      <div class="sections-wrapper__center">
+        <section>
+          <h2 id="about">About Breathing</h2>
+          <p>
+            <strong> Breathing</strong> is a simple application to help you
+            relax. We all face unnerving situations sometimes. Perhaps you are
+            preparing for an exam, interview, your first conference talk, or a
+            life-changing activity which makes you nervous. We all experience
+            that feeling. Sometimes just breathing in and out is what you need.
+            It helps calm you down and soothe your nerves. And that is the
+            purpose of this application. <strong>Breathing</strong> helps you
+            relax by breathing in and out.
+          </p>
+          <p>
+            This is the browser extension version of the linux desktop
+            application <strong>Breathing</strong> which, was created and
+            designed by
+            <a href="https://github.com/SeaDve" target="_blank">Dave Patrick</a
+            >. You can also download the desktop application on
+            <a
+              href="https://flathub.org/apps/details/io.github.seadve.Breathing"
+              target="_blank"
+              >Flathub</a
+            >
+            if you use <strong>GNOME</strong> desktop environment.
+          </p>
+        </section>
+        <section>
+          <h2>Keyboard shortcuts</h2>
+          <table></table>
+        </section>
+        <section>
+          <h2 id="keyboard-shortcuts">Contributing</h2>
+          <p>
+            If you find this app useful, do consider contributing. If you are
+            wondering how, you can contribute in the following ways.
+          </p>
+          <ul class="unordered-list">
+            <li>
+              You can translate to your local language. Be sure to first check
+              whether your language is
+              <a
+                href="https://developer.chrome.com/docs/webstore/i18n/#choosing-locales-to-support"
+                target="_blank"
+                >supported</a
+              >.
+            </li>
+            <li>
+              You can rate us on the app store or star the project repository on
+              GitHub.
+            </li>
+            <li>
+              Report bugs if you encounter some. There are probably a handful of
+              them.
+            </li>
+            <li>
+              You can also contribute code. If it is a bug fix do open a pull
+              request(PR). However, if it is a new feature, first open an issue
+              so that we discuss before opening a PR.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2 id="settings">Settings</h2>
+          <p>
+            The default breathing count is <strong>10</strong>. Breathing count
+            is the number of times one breaths in and out in a breathing
+            session. If you breath in and out once, that is one breathing count.
+            Its value should be an integer between 10 and 100 inclusive.
+          </p>
+          <form class="form" id="form">
+            <label>
+              Breathing count
+              <input
+                type="number"
+                value="10"
+                min="10"
+                max="100"
+                name="session-count"
+                id="session-count"
+                class="session-count"
+            /></label>
+            <p>
+              <button class="btn" type="submit">Save settings</button>
+            </p>
+          </form>
+        </section>
+        <section>
+          <h2>License</h2>
+          <p>
+            Breathing is a
+            <a
+              href="https://www.gnu.org/philosophy/free-sw.html"
+              target="_blank"
+              >free software</a
+            >
+            and will always be free. It is released under the terms of the
+            <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank"
+              >GNU General Public License v3.0</a
+            >. You can access the source code for this
+            <a href="https://github.com/nibble0101/Breathing" target="_blank"
+              >browser extension</a
+            >
+            and for the corresponding
+            <a href="https://github.com/SeaDve/Breathing" target="_blank"
+              >desktop application</a
+            >
+            on GitHub.
+          </p>
+        </section>
+      </div>
+    </div>
+    <footer class="footer">
+      <p class="copyright">
+        Copyright &copy;
+        <a href="https://github.com/nibble0101" target="_blank"> Joseph Mawa</a>
+        and
+        <a href="https://github.com/SeaDve" target="_blank"> Dave Patrick</a>
       </p>
     </footer>
   </body>
