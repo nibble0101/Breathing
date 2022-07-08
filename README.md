@@ -59,8 +59,8 @@ in a chromium-based browser like Chrome, Opera, Edge or Brave. You can follow
 this guide on [loading upacked extension in chrome](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked).
 Be aware the process might be slightly different for the other browsers and be sure
 to load the extension in the [chromium directory](./extensions/chromium/).You will
-get an error if you attempt to load the same file in Firefox because
-Firefox doesn't support MV3 yet, .
+get an error if you attempt to load the same directory in Firefox because
+Firefox doesn't support MV3 yet.
 
 ## License
 
