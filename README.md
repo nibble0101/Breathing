@@ -5,7 +5,7 @@
   Breathing
 </h1>
 
-<p align="center"><strong>Relax and meditate</strong></p>
+<p align="center"><strong>Relax, meditate and breathe your way to wellness</strong></p>
 
 <p align="center">
   <a href="#">
