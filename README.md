@@ -1,7 +1,7 @@
 <!-- markdownlint-disable -->
 
 <h1 align="center">
-  <img src="./images/breathing.png" alt=""/><br>
+  <img src="./images/breathing.svg" alt="Breathing" width="192" height="192"/><br>
   Breathing
 </h1>
 
