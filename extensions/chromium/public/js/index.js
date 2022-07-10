@@ -35,6 +35,8 @@ import {
 const controlBtn = document.getElementById("control-btn");
 const dropdownBtn = document.getElementById("btn-dropdown");
 const dropdown = document.getElementById("dropdown");
+const aboutMenuLink = document.getElementById("about-breathing");
+const openSettingsMenuLink = document.getElementById("open-settings");
 const switchThemeBtn = document.getElementById("btn-switch-theme");
 const closePopupBtn = document.getElementById("btn-close-popup");
 const reportBugLink = document.getElementById("link-report-bug");
@@ -159,9 +161,24 @@ const stopTimer = (breathingState) => {
  * Initializes the UI
  */
 const initUI = () => {
+  /**
+   * Dropdown button
+   */
   setAttribute(dropdownBtn, "title", messages.openMenuTitleText.message);
   setAttribute(dropdownBtn, "aria-label", messages.openMenuAriaLabel.message);
 
+  /**
+   * Dropdown menu links
+   */
+  setElementInnerText(aboutMenuLink, messages.aboutBreathingMenuText.message);
+  setElementInnerText(
+    openSettingsMenuLink,
+    messages.openSettingsMenuText.message
+  );
+
+  /**
+   * Switch theme button
+   */
   setAttribute(
     switchThemeBtn,
     "title",
@@ -173,6 +190,9 @@ const initUI = () => {
     messages.toggleDarkThemeAriaLabel.message
   );
 
+  /**
+   * Close popup button
+   */
   setAttribute(closePopupBtn, "title", messages.closePopupTitleText.message);
   setAttribute(
     closePopupBtn,
@@ -180,9 +200,15 @@ const initUI = () => {
     messages.closePopupAriaLabel.message
   );
 
-  controlBtn.textContent = messages.defaultControlBtnText.message;
+  /**
+   * Control button
+   */
+  setElementInnerText(controlBtn, messages.defaultControlBtnText.message);
 
-  reportBugLink.textContent = messages.reportBugAnchorText.message;
+  /**
+   * Report bug link
+   */
+  setElementInnerText(reportBugLink, messages.reportBugAnchorText.message);
 };
 
 /**

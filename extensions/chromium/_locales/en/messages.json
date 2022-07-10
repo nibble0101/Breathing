@@ -23,13 +23,13 @@
     "message": "Report bug",
     "description": "Anchor text for report bug link at the bottom of the popup"
   },
-  "aboutMenuText":{
+  "aboutBreathingMenuText":{
     "message": "About Breathing",
     "description": "Text for about link on the dropdown menu"
   },
-  "keyboardShortcutMenuText":{
-    "message": "Keyboard Shortcuts",
-    "description": "Text for keyboad shortcut link on the dropdown menu"
+  "openSettingsMenuText":{
+    "message": "Open Settings",
+    "description": "Text for open settings link on the dropdown menu"
   },
   "openMenuTitleText":{
     "message": "Open menu",
@@ -70,5 +70,17 @@
   "closePopupAriaLabel":{
     "message": "Close popup",
     "description": "Aria label for the close popup button"
+  },
+  "breathingCountLabelText":{
+    "message": "Breathing count",
+    "description": "Label text for the number input element on the options page" 
+  },
+  "saveSettingsButtonText":{
+    "message": "Save settings",
+    "description": "Text for save settings button on the options page" 
+  },
+  "successMessage": {
+    "message": "Settings saved successfully",
+    "description": "Text for message which briefly pops up when user successfully updates breathing count" 
   }
 }
