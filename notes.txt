@@ -1,7 +1,0 @@
-Todos
-
-- Link "Open Settings" menu item to embedded options page and internationalize embedded options page.
-- Link the "Keyboard shortcuts" menu item to chrome://extensions/shortcuts in chromium-based browsers. 
-Firefox doesn't have that feature. Not completely sure though.
-- Implement keyboard shortcuts.
-- Link "About Breathing" menu item to project's GitHub README.
