@@ -100,7 +100,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       messages[messageName].message = chrome.i18n.getMessage(messageName);
     }
 
-    console.log(messages);
     /**
      * Updating contents of options UI with localized messages
      */
