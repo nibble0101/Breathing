@@ -62,7 +62,7 @@ export const formatTime = (time) => {
  * Sets data to localStorage.
  *
  * @param {Object} data - Data you want to set to local storage in the form { key: value }
- * @returns
+ * @returns Boolean
  */
 export const setDataToLocalStorage = async (data) => {
   await chrome.storage.local.set(data);
@@ -82,20 +82,44 @@ export const getDataFromLocalStorage = async (storagKeys) => {
   return data;
 };
 
+/**
+ * Removes class from a given DOM element
+ * 
+ * @param {Object} element - DOM element
+ * @param {String} className - Class name
+ */
 export const removeClass = (element, className) => {
   element.classList.remove(className);
 };
 
+/**
+ * Remove class with given description from array of DOM elements
+ * 
+ * @param {Array} elements - An array of DOM elements
+ * @param {String} classDescription - Description of class to be removed
+ */
 export const removeClasses = (elements, classDescription) => {
   elements.forEach(({ element, [classDescription]: className }) => {
     removeClass(element, className);
   });
 };
 
+/**
+ * Adds class to a given DOM element
+ * 
+ * @param {Object} element - DOM element
+ * @param {String} className - Class name
+ */
 export const setClass = (element, className) => {
   element.classList.add(className);
 };
 
+/**
+ * Adds class with given description to array of DOM elements
+ * 
+ * @param {Array} elements - An array of DOM elements
+ * @param {String} classDescription - Description of class to be added
+ */
 export const setClasses = (elements, classDescription) => {
   elements.forEach(({ element, [classDescription]: className }) => {
     setClass(element, className);
@@ -123,7 +147,7 @@ export const getTransitionClasses = (elementClass, classDescriptions) => {
 
 /**
  * Sets the inner text of a DOM element
- * 
+ *
  * @param {Object} element - DOM element
  * @param {String} text - Text
  */
