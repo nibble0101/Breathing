@@ -73,10 +73,23 @@ formEl.addEventListener("submit", async (event) => {
   }
 });
 
+chrome.storage.onChanged.addListener((changes) => {
+  const { theme } = changes;
+  if (!theme) return;
+
+  if (theme.newValue === "dark") {
+    document.body.classList.add("dark-theme");
+    return;
+  }
+
+  document.body.classList.remove("dark-theme");
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const { breathingCycles } = await getDataFromLocalStorage([
+    const { theme, breathingCycles } = await getDataFromLocalStorage([
       "breathingCycles",
+      "theme",
     ]);
 
     if (breathingCycles) {
@@ -106,6 +119,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     label.textContent = messages.breathingCountLabelText.message;
     submitBtn.textContent = messages.saveSettingsButtonText.message;
     notificationEl.textContent = messages.successMessage.message;
+
+    /**
+     * Switch to dark theme is theme has been set to "dark"
+     */
+    if (theme === "dark") {
+      document.body.classList.add("dark-theme");
+    }
   } catch (error) {
     console.error(error);
   }
