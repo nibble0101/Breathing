@@ -141,14 +141,10 @@ https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
   background-color: var(--close-popup-btn-hover-bg-color);
 }
 
-/* For the star icon button */
+/* For the open dropdown and switch theme buttons */
 
 .btn--increase-fontsize {
   font-size: 1.5em;
-  
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 /* Header styles */
