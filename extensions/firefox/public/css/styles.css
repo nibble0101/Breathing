@@ -1,0 +1,370 @@
+/*
+FIXME
+Take note when breathing out, the transition timing is 6s
+https://github.com/SeaDve/Breathing/blob/main/data/ui/style.css#L38-L40
+*/
+
+:root {
+  --dimensions-inner-ring: 80px;
+
+  --bg-color-inner-ring: #6aa3e9;
+  --bg-color-center-ring: #87b4eb;
+  --bg-color-outer-ring: #b3ceee;
+
+  --dark-bg-color: #22272e;
+  --light-color: #adbac7;
+
+  --light-bg-color: #ffffff;
+  --dark-color: #2c3e50;
+
+  --close-popup-btn-bg-color: lightgrey;
+  --close-popup-btn-hover-bg-color: grey;
+  --btn-hover-bg-color: var(--close-popup-btn-bg-color);
+
+  --close-popup-btn-bg-color-dark-theme: #5c5b5b;
+
+  /* 
+     This transition delay should correspond with the
+     hold duration in JavaScript. If you chnage this
+     value, change the corresponding value of
+     durations.hold in index.js as well
+   */
+  --transition-timing-func-and-delay: ease-in-out 0.5s;
+
+  --z-index-button: 999;
+  --body-padding: 2em;
+  --popup-width: calc(var(--dimensions-inner-ring) * 3 + var(--body-padding));
+
+  --focus-outline: 3px solid var(--light-color);
+  /* #8ab4f8 color for footer link hover in dark theme */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.body {
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+  padding: 1em;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  position: relative;
+}
+
+.header-paragraph-margin-right {
+  margin-right: 0.5em;
+}
+
+/*
+ Dropdown styles
+*/
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 3px + 3px);
+  left: 0px;
+  z-index: calc(var(--z-index-button) * 2);
+  list-style: none;
+  background-color: var(--light-bg-color);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 0.5em 1em;
+  display: none;
+  border-radius: 3px;
+}
+
+.header--dropdown-btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  padding: 1px 3px;
+}
+
+.link--dropdown {
+  display: block;
+  color: var(--dark-color);
+  transition: background-color 0.5s ease-in-out;
+  padding: 0.5em;
+  border-radius: 3px;
+}
+
+.link--dropdown:focus,
+.link--dropdown:hover {
+  background-color: var(--btn-hover-bg-color);
+}
+
+.dropdown.display-block {
+  display: block;
+}
+
+/*
+ Button styles
+*/
+
+.btn {
+  outline: none;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+  transition: background-color var(--transition-timing-func-and-delay),
+    color var(--transition-timing-func-and-delay);
+}
+
+.btn:focus {
+  outline: var(--focus-outline);
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg-color);
+}
+
+.btn--close-popup {
+  background-color: var(--close-popup-btn-bg-color);
+}
+
+.btn--close-popup:hover {
+  background-color: var(--close-popup-btn-hover-bg-color);
+}
+
+/* For the star icon button */
+
+.btn--increase-fontsize {
+  font-size: 1.5em;
+  
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+/* Header styles */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*
+ Footer styles
+*/
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link--footer {
+  color: var(--dark-color);
+  transition: color 0.5s ease-in-out;
+}
+
+.link--footer:hover {
+  color: #1a0dab;
+}
+
+.link--footer:focus {
+  outline: var(--focus-outline);
+}
+
+/* Breathing  */
+
+.breathing {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: var(--popup-width);
+  height: var(--popup-width);
+}
+
+.wrapper {
+  position: relative;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ring__btn {
+  /* 
+    The dimensions of the button ring are
+    longer than that of other rings to prevent
+    ugly ridges which appear when we set it to
+    48px like the other rings. The rings are 
+    stacked ontop of each other. This is the
+    topmost ring.
+  */
+  width: 50px;
+  height: 50px;
+  transition: all 200ms ease-in-out;
+  opacity: 1;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background-color: #3584e4;
+  color: white;
+  z-index: calc(var(--z-index-button) - 0);
+}
+
+.ring__btn:focus {
+  /* FIXME This focus outline is not visible when session is on. */
+  box-shadow: 0 0 6px 0 black;
+}
+
+.ring__btn-exercise-on {
+  box-shadow: 0 0 6px 0 var(--dark-color);
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+}
+
+/*
+ Concentric rings
+*/
+
+.ring__inner {
+  background-color: var(--bg-color-inner-ring);
+  z-index: calc(var(--z-index-button) - 1);
+}
+
+.ring__center {
+  background-color: var(--bg-color-center-ring);
+  z-index: calc(var(--z-index-button) - 2);
+}
+
+.ring__outer {
+  background-color: var(--bg-color-outer-ring);
+  z-index: calc(var(--z-index-button) - 3);
+}
+
+/*
+ Concentric rings breath in transitions
+*/
+
+.ring__inner--transition-breath-in {
+  transition: width 2.4s var(--transition-timing-func-and-delay),
+    height 2.4s var(--transition-timing-func-and-delay);
+}
+
+.ring__center--transition-breath-in {
+  transition: width 2.7s var(--transition-timing-func-and-delay),
+    height 2.7s var(--transition-timing-func-and-delay);
+}
+
+.ring__outer--transition-breath-in {
+  /* 
+     This transition duration should correspond with the
+     breath in duration in JavaScript. If you chnage this
+     value, change the corresponding value of durations.in
+     in constants.js as well.
+   */
+  transition: width 3s var(--transition-timing-func-and-delay),
+    height 3s var(--transition-timing-func-and-delay);
+}
+
+/*
+ Concentric rings breath out transition
+*/
+
+.ring__transition-breath-out {
+  /*
+    This transition duration should correspond with the
+    breath out duration in JavaScript. If you chnage this
+    value, change the corresponding value of durations.out 
+    in constants.js as well.
+   */
+  transition: width 6s var(--transition-timing-func-and-delay),
+    height 6s var(--transition-timing-func-and-delay);
+}
+
+/*
+ Concentric rings enlargement styles
+*/
+
+.ring__inner--enlarge {
+  width: var(--dimensions-inner-ring);
+  height: var(--dimensions-inner-ring);
+}
+
+.ring__center--enlarge {
+  width: calc(var(--dimensions-inner-ring) * 2);
+  height: calc(var(--dimensions-inner-ring) * 2);
+}
+
+.ring__outer--enlarge {
+  width: calc(var(--dimensions-inner-ring) * 3);
+  height: calc(var(--dimensions-inner-ring) * 3);
+}
+
+/*
+ Dark theme style
+*/
+
+.dark-theme {
+  background-color: var(--dark-bg-color);
+  color: var(--light-color);
+}
+
+.dark-theme-report-bug-link {
+  color: var(--light-color);
+}
+
+.dark-theme-report-bug-link:hover {
+  color: #8ab4f8;
+}
+
+.btn.dark-theme {
+  background-color: var(--dark-bg-color);
+  color: var(--light-color);
+}
+
+.btn.dark-theme:hover {
+  background-color: var(--close-popup-btn-bg-color-dark-theme);
+  color: #fff;
+}
+
+.btn--close-popup.dark-theme {
+  background-color: var(--close-popup-btn-bg-color-dark-theme);
+  color: #fff;
+}
+
+.btn--close-popup.dark-theme:hover {
+  color: whitesmoke;
+  background-color: #444857;
+}
+
+.dropdown.dark-theme {
+  background-color: rgb(64, 69, 76);
+  box-shadow: 0px 8px 16px 0px rgba(107, 104, 104, 0.2);
+}
+.dropdown.dark-theme li > a {
+  color: var(--light-color);
+}
+.dropdown.dark-theme li > a:hover,
+.dropdown.dark-theme li > a:focus {
+  background-color: rgb(54, 54, 54);
+  color: var(--light-color);
+}
