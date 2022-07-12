@@ -1,0 +1,31 @@
+{
+  "name": "Breathing",
+  "description": "__MSG_extensionDescription__",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "permissions": ["storage"],
+  "options_ui": { 
+    "page": "public/options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "public/index.html",
+    "default_title": "__MSG_defaultTitle__",
+    "default_icon": {
+      "16": "public/icons/breathing_16.png",
+      "32": "public/icons/breathing_32.png",
+      "64": "public/icons/breathing_64.png"
+    }
+  },
+  "icons": {
+    "16": "public/icons/breathing_16.png",
+    "32": "public/icons/breathing_32.png",
+    "48": "public/icons/breathing_48.png",
+    "128": "public/icons/breathing_128.png"
+  }
+}

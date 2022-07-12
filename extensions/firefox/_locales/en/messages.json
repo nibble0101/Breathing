@@ -1,0 +1,86 @@
+{
+  "extensionDescription": {
+    "message": "Start your day feeling calm by just breathing in and out",
+    "decription": "Decription which appears on the extension details page"
+  },
+  "defaultTitle": {
+    "message": "Breathing",
+    "description": "Title displayed when you hover over the extension icon in the toolbar"
+  },
+  "defaultControlBtnText": {
+    "message": "Go",
+    "description": "Default text displayed on control button"
+  },
+  "breathInText": {
+    "message": "In",
+    "description": "Text displayed on control button when breathing in"
+  },
+  "breathOutText": {
+    "message": "Out",
+    "description": "Text displayed on control button when breathing out"
+  },
+  "reportBugAnchorText": {
+    "message": "Report bug",
+    "description": "Anchor text for report bug link at the bottom of the popup"
+  },
+  "aboutBreathingMenuText":{
+    "message": "About Breathing",
+    "description": "Text for about link on the dropdown menu"
+  },
+  "openSettingsMenuText":{
+    "message": "Open Settings",
+    "description": "Text for open settings link on the dropdown menu"
+  },
+  "openMenuTitleText":{
+    "message": "Open menu",
+    "description": "Title text for the menu control button when dropdown menu is closed"
+  },
+  "closeMenuTitleText":{
+    "message": "Close menu",
+    "description": "Title text for the menu control button when dropdown menu is open"
+  },
+  "openMenuAriaLabel":{
+    "message": "Open menu",
+    "description": "Aria label for menu control button when dropdown menu is closed"
+  },
+  "closeMenuAriaLabel":{
+    "message": "Close menu",
+    "description": "Aria label for menu control button when dropdown menu is open"
+  },
+  "toggleDarkThemeTitleText":{
+    "message": "Toggle dark theme",
+    "description": "Title text for the theme control button when light theme is selected"
+  },
+  "toggleLightThemeTitleText":{
+    "message": "Toggle light theme",
+    "description": "Title text for the theme control button when dark theme is selected"
+  },
+  "toggleDarkThemeAriaLabel":{
+    "message": "Toggle dark theme",
+    "description": "Aria label for the theme control button when light theme is selected"
+  },
+  "toggleLightThemeAriaLabel":{
+    "message": "Toggle light theme",
+    "description": "Aria label for the theme control button when dark theme is selected"
+  },
+  "closePopupTitleText":{
+    "message": "Close popup",
+    "description": "Title text which appears when you hover over close popup button"
+  },
+  "closePopupAriaLabel":{
+    "message": "Close popup",
+    "description": "Aria label for the close popup button"
+  },
+  "breathingCountLabelText":{
+    "message": "Breathing count",
+    "description": "Label text for the number input element on the options page" 
+  },
+  "saveSettingsButtonText":{
+    "message": "Save settings",
+    "description": "Text for save settings button on the options page" 
+  },
+  "successMessage": {
+    "message": "Settings saved successfully",
+    "description": "Text for message which briefly pops up when user successfully updates breathing count" 
+  }
+}

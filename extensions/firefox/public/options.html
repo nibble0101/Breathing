@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/options.css" />
+    <script src="./js/options.js" defer></script>
+    <title>Breathing</title>
+  </head>
+  <body>
+    <form class="form" id="form">
+      <p class="notification" id="notification">Settings saved successfully</p>
+      <div>
+        <label for="session-count" id="label"> Breathing count </label>
+        <input
+          type="number"
+          value="10"
+          min="10"
+          max="100"
+          name="session-count"
+          id="session-count"
+          class="session-count"
+        />
+      </div>
+      <div>
+        <button class="btn" type="submit" id="submit-btn">Save settings</button>
+      </div>
+    </form>
+  </body>
+</html>
