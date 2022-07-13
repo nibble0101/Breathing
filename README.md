@@ -11,7 +11,7 @@
   <a href="#">
     <img  alt="Download from Edge store" src="./images/badges/edge-store-badge.png"/>
   </a>
-  <a href="#">
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/breathing/">
     <img alt="Download from Firefox addon store" src="./images/badges/firefox-addon-badge.png">
   </a>
 </p>
