@@ -8,7 +8,7 @@
 <p align="center"><strong>Relax, meditate and breathe your way to wellness</strong></p>
 
 <p align="center">
-  <a href="#">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/breathing/gfejngjamohbkifhaimpoaamigkiicnc">
     <img  alt="Download from Edge store" src="./images/badges/edge-store-badge.png"/>
   </a>
   <a href="https://addons.mozilla.org/en-US/firefox/addon/breathing/">
