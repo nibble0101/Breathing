@@ -55,12 +55,13 @@ if it is a new feature, first open an issue so that we discuss before opening a 
 ## Run project locally
 
 To run this project locally, clone this repository and load the unpacked extension
-in a chromium-based browser like Chrome, Opera, Edge or Brave. You can follow
+in a chromium-based browser like Chrome, Opera, Edge or Brave.   You can follow
 this guide on [loading upacked extension in chrome](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked).
-Be aware the process might be slightly different for the other browsers and be sure
-to load the extension in the [chromium directory](./extensions/chromium/).You will
-get an error if you attempt to load the same directory in Firefox because
-Firefox doesn't support MV3 yet.
+
+Be aware the process might be slightly different for the other
+browsers and be sure to load the extension in the [chromium directory](./extensions/chromium/)
+for chromium-based browsers. Similarly, you can also load the unpacked extension
+in the firefox directory to test the extension in Firefox.
 
 ## License
 
